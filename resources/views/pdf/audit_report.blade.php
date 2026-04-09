@@ -433,13 +433,6 @@
                             ( {{ $currentUser->full_name ?? '__________________________' }}{{ ($currentUser->title) ? ', '.$currentUser->title : '' }} )
                         @endif
                     </div>
-                    <div class="signature-id">
-                        @if($auditLog)
-                            Digital Signature ID: #{{ strtoupper(substr(md5($auditLog->id . $auditLog->audited_by), 0, 10)) }}
-                        @else
-                            Manual Signature Required
-                        @endif
-                    </div>
                 </td>
 
                 <!-- Right Signature: Head of Kitchen / Kepala Dapur -->
@@ -447,9 +440,6 @@
                     <div class="signature-title">Kepala {{ $kitchen->kitchen_name }},</div>
                     <div class="signature-name">
                         ( {{ $kitchen->head_of_kitchen_name ?? '__________________________' }} )
-                    </div>
-                    <div class="signature-id">
-                        Pimpinan Unit Produksi
                     </div>
                 </td>
             </tr>
