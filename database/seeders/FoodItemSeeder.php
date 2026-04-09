@@ -111,38 +111,6 @@ class FoodItemSeeder extends Seeder
         // MERGE ALL
         $finalItems = array_merge($menuItems, $bumbuItems, $karboItems, $hewaniItems, $nabatiItems, $sayurItems, $buahItems);
 
-        // GENERATE AUTOMATIC REALISTIC NAMES FOR THE REST (Up to 300)
-        // Using prefix/suffix for realism instead of "Variation X"
-        $prefixes = ['Spesial', 'Organik', 'Lokal', 'Impor', 'Premium', 'Segar', 'Olahan', 'Alami'];
-        $baseTypes = [
-            'Ayam' => 'Protein Hewani', 'Ikan' => 'Protein Hewani', 'Sapi' => 'Protein Hewani',
-            'Tahu' => 'Protein Nabati', 'Tempe' => 'Protein Nabati',
-            'Beras' => 'Karbohidrat', 'Ubi' => 'Karbohidrat', 
-            'Bayam' => 'Sayuran', 'Wortel' => 'Sayuran', 'Kangkung' => 'Sayuran',
-            'Pisang' => 'Buah', 'Jeruk' => 'Buah', 'Apel' => 'Buah'
-        ];
-
-        while (count($finalItems) < 305) {
-            $type = array_rand($baseTypes);
-            $cat = $baseTypes[$type];
-            $pref = $prefixes[array_rand($prefixes)];
-            $id = count($finalItems);
-            $name = "$type $pref #$id"; // Still unique but sounds better than "Bahan Variasi"
-
-            $finalItems[] = [
-                'name' => $name,
-                'category' => $cat,
-                'base_unit' => 'gram', 'base_quantity' => 100,
-                'urt_unit' => ($cat == 'Karbohidrat' ? 'Piring' : ($cat == 'Sayuran' ? 'Mangkuk' : 'Potong')), 
-                'urt_weight' => rand(50, 150),
-                'energy_kcal' => rand(30, 350),
-                'protein_g' => rand(1, 25),
-                'fat_g' => rand(0, 20),
-                'carbs_g' => rand(5, 75),
-                'yield_factor' => 1.00,
-            ];
-        }
-
         foreach ($finalItems as $item) {
             FoodItem::updateOrCreate(['name' => $item['name']], $item);
         }
