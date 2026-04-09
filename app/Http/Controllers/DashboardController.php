@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $stats = [
             'total_schools' => School::count(),
             'total_menus' => DailyMenu::count(),
-            'active_beneficiaries' => School::sum('total_beneficiaries'),
+            'active_beneficiaries' => School::selectRaw('SUM(small_portion_count + large_portion_count) as total')->value('total') ?? 0,
             'compliance_rate' => 98 // Placeholder for now
         ];
 
