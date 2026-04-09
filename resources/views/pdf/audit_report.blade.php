@@ -430,7 +430,7 @@
                         @if($auditLog)
                             ( {{ $auditLog->auditor?->full_name ?? 'Nutritionist Nutrizi' }}{{ ($auditLog->auditor?->title) ? ', '.$auditLog->auditor->title : '' }} )
                         @else
-                            ( __________________________ )
+                            ( {{ $currentUser->full_name ?? '__________________________' }}{{ ($currentUser->title) ? ', '.$currentUser->title : '' }} )
                         @endif
                     </div>
                     <div class="signature-id">

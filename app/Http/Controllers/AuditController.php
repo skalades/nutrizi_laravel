@@ -225,6 +225,7 @@ class AuditController extends Controller
 
         $data['photoBase64'] = $photoBase64;
         $data['logoBase64'] = $logoBase64;
+        $data['currentUser'] = $user;
 
         $pdf = Pdf::loadView('pdf.audit_report', $data);
         
