@@ -9,6 +9,7 @@ interface Kitchen {
     id: number;
     kitchen_name: string;
     location_address: string | null;
+    head_of_kitchen_name: string | null;
     capacity: number | null;
     default_buffer_count: number;
     default_sample_count: number;

@@ -26,6 +26,7 @@ class StoreKitchenRequest extends FormRequest
             'kitchen_name' => 'required|string|max:255',
             'location_address' => 'nullable|string',
             'capacity' => 'nullable|integer|min:0',
+            'head_of_kitchen_name' => 'nullable|string|max:255',
             'default_buffer_count' => 'nullable|integer|min:0',
             'default_sample_count' => 'nullable|integer|min:0',
         ];

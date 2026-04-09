@@ -9,7 +9,7 @@
         }
         body {
             font-family: 'Helvetica', 'Arial', sans-serif;
-            color: #1e293b;
+            color: #000000;
             line-height: 1.5;
             margin: 0;
             padding: 0;
@@ -17,7 +17,7 @@
         /* Header / Kop Surat Symmetry Fix */
         .kop-surat-table {
             width: 100%;
-            border-bottom: 3px double #064e3b;
+            border-bottom: 2px solid #000000;
             padding-bottom: 15px;
             margin-bottom: 30px;
         }
@@ -32,17 +32,24 @@
         .spacer-col {
             width: 80px;
         }
+        .org-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #000000;
+            margin: 0;
+            margin-bottom: 2px;
+        }
         .kitchen-name {
             font-size: 20px;
             font-weight: 800;
-            color: #064e3b;
+            color: #000000;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             margin: 0;
         }
         .kitchen-address {
             font-size: 9px;
-            color: #64748b;
+            color: #000000;
             margin-top: 5px;
             font-style: italic;
         }
@@ -54,17 +61,17 @@
             font-size: 15px;
             font-weight: 800;
             text-transform: uppercase;
-            color: #0f172a;
+            color: #000000;
             letter-spacing: 1px;
         }
         .section-header {
             background-color: #f8fafc;
-            border-left: 5px solid #064e3b;
+            border-left: 5px solid #000000;
             padding: 8px 15px;
             font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
-            color: #064e3b;
+            color: #000000;
             margin-top: 30px;
             margin-bottom: 15px;
         }
@@ -74,7 +81,7 @@
         }
         .data-label {
             font-size: 9px;
-            color: #64748b;
+            color: #000000;
             text-transform: uppercase;
             font-weight: 700;
             margin-bottom: 2px;
@@ -82,7 +89,7 @@
         .data-value {
             font-size: 11px;
             font-weight: 700;
-            color: #0f172a;
+            color: #000000;
         }
         .score-table {
             width: 100%;
@@ -104,7 +111,7 @@
             padding: 15px;
             text-align: center;
             border: 1px solid #e2e8f0;
-            color: #064e3b;
+            color: #000000;
         }
         /* Photo Box Optimization */
         .photo-box {
@@ -122,12 +129,12 @@
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
         .instruction-card {
-            background-color: #f0fdf4;
-            border: 1px solid #bbf7d0;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
             padding: 15px 20px;
             border-radius: 15px;
             font-size: 10px;
-            color: #166534;
+            color: #000000;
             margin-bottom: 30px;
         }
         .table {
@@ -149,14 +156,17 @@
         }
         /* Signature Area & Page Break Fix */
         .signature-area {
-            margin-top: 80px;
+            margin-top: 50px;
             width: 100%;
             page-break-inside: avoid;
         }
+        .signature-table {
+            width: 100%;
+        }
         .signature-box {
-            float: right;
             text-align: center;
-            width: 250px;
+            width: 50%;
+            vertical-align: top;
         }
         .signature-title {
             font-size: 11px;
@@ -166,25 +176,25 @@
         .signature-name {
             font-size: 13px;
             font-weight: 800;
-            border-bottom: 2px solid #0f172a;
+            border-bottom: 2px solid #000000;
             display: inline-block;
             padding-bottom: 2px;
             margin-bottom: 5px;
-            color: #0f172a;
+            color: #000000;
         }
         .signature-id {
             font-size: 8px;
-            color: #94a3b8;
+            color: #000000;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         .footer-note {
             margin-top: 50px;
             font-size: 8px;
-            color: #94a3b8;
+            color: #000000;
             font-style: italic;
             text-align: center;
-            border-top: 1px solid #f1f5f9;
+            border-top: 1px solid #e2e8f0;
             padding-top: 15px;
             clear: both;
         }
@@ -202,6 +212,7 @@
                 @endif
             </td>
             <td class="header-text-col">
+                <div class="org-name">BADAN GIZI NASIONAL</div>
                 <div class="kitchen-name">{{ $kitchen->kitchen_name }}</div>
                 <div class="kitchen-address">
                     {{ $kitchen->location_address ?? 'Alamat unit dapur belum dikonfigurasi' }}
@@ -266,7 +277,7 @@
         <div class="instruction-card">
             @foreach($instructions as $inst)
                 <div style="margin-bottom: 8px;">
-                    <span style="font-weight: 800; color: #166534; text-decoration: underline;">• {{ $inst['menu_name'] }}:</span>
+                    <span style="font-weight: 800; color: #000000; text-decoration: underline;">• {{ $inst['menu_name'] }}:</span>
                     <div style="margin-top: 3px; line-height: 1.6;">{!! nl2br(e($inst['content'])) !!}</div>
                 </div>
             @endforeach
@@ -278,7 +289,7 @@
         
         @foreach($nutritionSummary as $nutri)
             <!-- Detailed Table for Small Portion -->
-            <div style="margin-bottom: 5px; font-size: 10px; font-weight: 800; color: #064e3b; text-transform: uppercase;">
+            <div style="margin-bottom: 5px; font-size: 10px; font-weight: 800; color: #000000; text-transform: uppercase;">
                 {{ $nutri['menu_name'] }} - Porsi Kecil (SD)
             </div>
             <table class="table" style="margin-bottom: 20px;">
@@ -310,7 +321,7 @@
                         <td style="text-align: right;">{{ number_format($nutri['small_total']['fat'], 1) }}g</td>
                         <td style="text-align: right;">{{ number_format($nutri['small_total']['carbs'], 1) }}g</td>
                     </tr>
-                    <tr style="background-color: #f8fafc; color: #64748b; font-size: 8px;">
+                    <tr style="background-color: #f8fafc; color: #000000; font-size: 8px;">
                         <td>Target Standar Gizi (SD)</td>
                         <td style="text-align: right;">469.9</td>
                         <td style="text-align: right;">10.5g</td>
@@ -321,7 +332,7 @@
             </table>
 
             <!-- Detailed Table for Large Portion -->
-            <div style="margin-bottom: 5px; font-size: 10px; font-weight: 800; color: #064e3b; text-transform: uppercase;">
+            <div style="margin-bottom: 5px; font-size: 10px; font-weight: 800; color: #000000; text-transform: uppercase;">
                 {{ $nutri['menu_name'] }} - Porsi Besar (SMP)
             </div>
             <table class="table" style="margin-bottom: 30px;">
@@ -353,7 +364,7 @@
                         <td style="text-align: right;">{{ number_format($nutri['large_total']['fat'], 1) }}g</td>
                         <td style="text-align: right;">{{ number_format($nutri['large_total']['carbs'], 1) }}g</td>
                     </tr>
-                    <tr style="background-color: #f8fafc; color: #64748b; font-size: 8px;">
+                    <tr style="background-color: #f8fafc; color: #000000; font-size: 8px;">
                         <td>Target Standar Gizi (SMP)</td>
                         <td style="text-align: right;">644.5</td>
                         <td style="text-align: right;">18.3g</td>
@@ -410,28 +421,44 @@
     </table>
 
     <div class="signature-area">
-        <div class="signature-box">
-            <div class="signature-title">{{ $auditLog ? 'Ahli Gizi Penanggung Jawab,' : 'Koordinator Unit Dapur,' }}</div>
-            <div class="signature-name">
-                @if($auditLog)
-                    {{ $auditLog->auditor?->full_name ?? 'Nutritionist Nutrizi' }}{{ ($auditLog->auditor?->title) ? ', '.$auditLog->auditor->title : '' }}
-                @else
-                    (__________________________)
-                @endif
-            </div>
-            <div class="signature-id">
-                @if($auditLog)
-                    Digital Signature ID: #{{ strtoupper(substr(md5($auditLog->id . $auditLog->audited_by), 0, 10)) }}
-                @else
-                    Manual Signature Required for Worksheet
-                @endif
-            </div>
-        </div>
-        <div class="clear"></div>
+        <table class="signature-table">
+            <tr>
+                <!-- Left Signature: Nutritionist / Pengawas Gizi -->
+                <td class="signature-box">
+                    <div class="signature-title">Pengawas Gizi,</div>
+                    <div class="signature-name">
+                        @if($auditLog)
+                            ( {{ $auditLog->auditor?->full_name ?? 'Nutritionist Nutrizi' }}{{ ($auditLog->auditor?->title) ? ', '.$auditLog->auditor->title : '' }} )
+                        @else
+                            ( __________________________ )
+                        @endif
+                    </div>
+                    <div class="signature-id">
+                        @if($auditLog)
+                            Digital Signature ID: #{{ strtoupper(substr(md5($auditLog->id . $auditLog->audited_by), 0, 10)) }}
+                        @else
+                            Manual Signature Required
+                        @endif
+                    </div>
+                </td>
+
+                <!-- Right Signature: Head of Kitchen / Kepala Dapur -->
+                <td class="signature-box">
+                    <div class="signature-title">Kepala {{ $kitchen->kitchen_name }},</div>
+                    <div class="signature-name">
+                        ( {{ $kitchen->head_of_kitchen_name ?? '__________________________' }} )
+                    </div>
+                    <div class="signature-id">
+                        Pimpinan Unit Produksi
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <div class="footer-note">
         Laporan ini diproses oleh Sistem Nutrizi untuk keperluan operasional unit dapur.<br>
+        Akses Sistem: https://nutrizi.skalades.biz.id/ <br>
         Waktu Cetak: {{ now()->translatedFormat('d F Y, H:i') }} | Unit Produksi: {{ $kitchen->kitchen_name }}
     </div>
 </body>

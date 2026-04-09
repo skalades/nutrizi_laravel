@@ -15,11 +15,11 @@ class KitchenSeeder extends Seeder
         $kitchens = [
             [
                 'kitchen_name' => 'Central Kitchen Jakarta',
-                'address' => 'Jl. Raya Bogor No. 123, Jakarta Timur',
+                'location_address' => 'Jl. Raya Bogor No. 123, Jakarta Timur',
             ],
             [
                 'kitchen_name' => 'Kitchen Satellite Bekasi',
-                'address' => 'Jl. Ahmad Yani No. 45, Bekasi Barat',
+                'location_address' => 'Jl. Ahmad Yani No. 45, Bekasi Barat',
             ],
         ];
 

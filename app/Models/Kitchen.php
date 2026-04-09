@@ -13,6 +13,7 @@ class Kitchen extends Model
         'kitchen_name', 
         'location_address',
         'capacity',
+        'head_of_kitchen_name',
         'default_buffer_count',
         'default_sample_count'
     ];

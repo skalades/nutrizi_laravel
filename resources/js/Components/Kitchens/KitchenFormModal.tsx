@@ -7,6 +7,7 @@ interface Kitchen {
     id: number;
     kitchen_name: string;
     location_address: string | null;
+    head_of_kitchen_name: string | null;
     capacity: number | null;
     default_buffer_count: number;
     default_sample_count: number;
@@ -24,6 +25,7 @@ export default function KitchenFormModal({ isOpen, onClose, kitchen }: KitchenFo
     const { data, setData, post, patch, processing, errors, reset, clearErrors } = useForm({
         kitchen_name: '',
         location_address: '',
+        head_of_kitchen_name: '',
         capacity: 0,
         default_buffer_count: 0,
         default_sample_count: 0,
@@ -35,6 +37,7 @@ export default function KitchenFormModal({ isOpen, onClose, kitchen }: KitchenFo
                 setData({
                     kitchen_name: kitchen.kitchen_name || '',
                     location_address: kitchen.location_address || '',
+                    head_of_kitchen_name: kitchen.head_of_kitchen_name || '',
                     capacity: kitchen.capacity || 0,
                     default_buffer_count: kitchen.default_buffer_count || 0,
                     default_sample_count: kitchen.default_sample_count || 0,
@@ -96,6 +99,18 @@ export default function KitchenFormModal({ isOpen, onClose, kitchen }: KitchenFo
                                 required
                             />
                             {errors.kitchen_name && <p className="text-xs text-rose-600 mt-1">{errors.kitchen_name}</p>}
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black text-emerald-900/40 uppercase tracking-[0.2em] ml-1">Nama Kepala Unit (Signature)</label>
+                            <input
+                                type="text"
+                                value={data.head_of_kitchen_name}
+                                onChange={(e) => setData('head_of_kitchen_name', e.target.value)}
+                                className="w-full bg-slate-50 border-emerald-900/5 rounded-2xl p-4 text-emerald-950 font-bold focus:ring-2 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all text-sm"
+                                placeholder="Misal: Kikie Swandi Lase, S.P."
+                            />
+                            {errors.head_of_kitchen_name && <p className="text-xs text-rose-600 mt-1">{errors.head_of_kitchen_name}</p>}
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
