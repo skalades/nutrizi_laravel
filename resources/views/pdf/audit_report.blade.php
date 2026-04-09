@@ -418,6 +418,15 @@
                 </tr>
             @endforeach
         </tbody>
+        <tfoot>
+            <tr style="background-color: #f1f5f9; font-weight: 800; border-top: 2px solid #000000;">
+                <td>TOTAL PENERIMA MANFAAT</td>
+                <td style="text-align: center;">{{ collect($distribution)->sum('small_count') }}</td>
+                <td style="text-align: center;">{{ collect($distribution)->sum('large_count') }}</td>
+                <td style="text-align: center;">+{{ collect($distribution)->sum(fn($d) => $d['buffer'] + $d['sample']) }}</td>
+                <td style="text-align: right; color: #000000; font-size: 11px;">{{ collect($distribution)->sum('total') }}</td>
+            </tr>
+        </tfoot>
     </table>
 
     <div class="signature-area">
