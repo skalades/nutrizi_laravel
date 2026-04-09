@@ -23,6 +23,8 @@ interface DashboardProps extends PageProps {
         total_schools: number;
         total_menus: number;
         active_beneficiaries: number;
+        total_extra: number;
+        total_production: number;
         compliance_rate: number;
     };
     recentActivity: any[];
@@ -82,14 +84,28 @@ export default function Dashboard({ stats, recentActivity, upcomingSchedule, all
                     <div className="col-span-12 lg:col-span-9 space-y-10">
                         
                         {/* Summary Grid */}
-                        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {[
                                 { 
                                     label: 'Penerima Manfaat', 
                                     val: stats.active_beneficiaries.toLocaleString(), 
                                     icon: Users, 
                                     color: 'emerald',
-                                    badge: 'Live'
+                                    badge: 'Siswa'
+                                },
+                                { 
+                                    label: 'Extra (Buffer/Sample)', 
+                                    val: `+${stats.total_extra}`, 
+                                    icon: Zap, 
+                                    color: 'amber',
+                                    badge: 'QC'
+                                },
+                                { 
+                                    label: 'Total Produksi', 
+                                    val: stats.total_production.toLocaleString(), 
+                                    icon: ChefHat, 
+                                    color: 'premium',
+                                    badge: 'Logistik'
                                 },
                                 { 
                                     label: 'Unit Sekolah', 
@@ -109,7 +125,7 @@ export default function Dashboard({ stats, recentActivity, upcomingSchedule, all
                                     label: 'Skor Kepatuhan', 
                                     val: `${stats.compliance_rate}%`, 
                                     icon: ShieldCheck, 
-                                    color: 'premium',
+                                    color: 'emerald',
                                     badge: 'Gizi'
                                 }
                             ].map((stat, i) => (
