@@ -64,6 +64,7 @@ class PlannerController extends Controller
                     'buffer_portions' => $buffer,
                     'organoleptic_portions' => $sample,
                     'created_by' => $createdBy,
+                    'kitchen_id' => $school->kitchen_id,
                 ]);
                 
                 foreach ($masterMenu->items as $item) {
