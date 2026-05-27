@@ -140,3 +140,15 @@ UPDATE `food_items` SET `category` = 'Protein Hewani' WHERE `id` = 441; -- Chike
 UPDATE `food_items` SET `category` = 'Protein Hewani' WHERE `id` = 442; -- Dorry Crispy
 UPDATE `food_items` SET `category` = 'Lainnya' WHERE `id` = 443; -- Susu Diamond
 UPDATE `food_items` SET `category` = 'Protein Hewani' WHERE `id` = 444; -- Telur Bumbu Bali
+
+-- Sync portion_name in master_menu_items and daily_menu_items with food_items category
+UPDATE `master_menu_items` 
+JOIN `food_items` ON `master_menu_items`.`food_item_id` = `food_items`.`id`
+SET `master_menu_items`.`portion_name` = `food_items`.`category`
+WHERE `food_items`.`category` IS NOT NULL AND `food_items`.`category` != '';
+
+UPDATE `daily_menu_items` 
+JOIN `food_items` ON `daily_menu_items`.`food_item_id` = `food_items`.`id`
+SET `daily_menu_items`.`portion_name` = `food_items`.`category`
+WHERE `food_items`.`category` IS NOT NULL AND `food_items`.`category` != '';
+
