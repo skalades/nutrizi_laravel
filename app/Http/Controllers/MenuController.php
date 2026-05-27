@@ -42,6 +42,11 @@ class MenuController extends Controller
         ]);
     }
 
+    public function show(MasterMenu $menu)
+    {
+        return redirect()->route('menus.edit', $menu->id);
+    }
+
     public function edit(MasterMenu $menu)
     {
         $menu->load('items.foodItem');
