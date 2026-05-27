@@ -142,7 +142,15 @@ class AuditController extends Controller
                     ];
                 }
                 $weight = ($smallCount * $item->weight_small) + ($totalLargeBase * $item->weight_large);
-                $requirements[$foodId]['total_weight'] += $weight;
+                
+                // Integrate yield factor to calculate raw weight needed for purchasing
+                $yieldFactor = floatval($item->foodItem->yield_factor ?? 1.00);
+                if ($yieldFactor <= 0) {
+                    $yieldFactor = 1.00;
+                }
+                $rawWeight = $weight / $yieldFactor;
+                
+                $requirements[$foodId]['total_weight'] += $rawWeight;
             }
         }
 
