@@ -220,7 +220,7 @@
     <table class="data-grid">
         <tr>
             <td width="30%">
-                <div class="data-label">Handled Date</div>
+                <div class="data-label">Tanggal Terbit Menu</div>
                 <div class="data-value">{{ \Carbon\Carbon::parse($date)->translatedFormat('l, d F Y') }}</div>
             </td>
             <td width="40%">
