@@ -375,8 +375,8 @@ export default function EditMenu({ menu, foodItems, schools }: Props) {
                                             <label className="text-[8px] font-black uppercase tracking-widest text-emerald-800/30">Gram (Kecil)</label>
                                             <TextInput 
                                                 type="number"
-                                                value={item.weight_small}
-                                                onChange={e => updateItem(index, 'weight_small', parseFloat(e.target.value))}
+                                                value={isNaN(Number(item.weight_small)) ? '' : item.weight_small}
+                                                onChange={e => updateItem(index, 'weight_small', e.target.value === '' ? '' : parseFloat(e.target.value))}
                                                 className="w-full border-none bg-emerald-50/50 rounded-xl text-xs font-black text-emerald-600"
                                             />
                                         </div>
@@ -385,8 +385,8 @@ export default function EditMenu({ menu, foodItems, schools }: Props) {
                                             <label className="text-[8px] font-black uppercase tracking-widest text-emerald-800/30">Gram (Besar)</label>
                                             <TextInput 
                                                 type="number"
-                                                value={item.weight_large}
-                                                onChange={e => updateItem(index, 'weight_large', parseFloat(e.target.value))}
+                                                value={isNaN(Number(item.weight_large)) ? '' : item.weight_large}
+                                                onChange={e => updateItem(index, 'weight_large', e.target.value === '' ? '' : parseFloat(e.target.value))}
                                                 className="w-full border-none bg-emerald-50/50 rounded-xl text-xs font-black text-emerald-900"
                                             />
                                         </div>
