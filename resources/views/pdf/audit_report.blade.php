@@ -441,8 +441,7 @@
     </div>
 
     <div class="footer-note">
-        Laporan ini diproses oleh Sistem Nutrizi untuk keperluan operasional unit dapur.<br>
-        Waktu Cetak: {{ now()->translatedFormat('d F Y, H:i') }} | Unit Produksi: {{ $kitchen->kitchen_name }}
+        Unit Produksi: {{ $kitchen->kitchen_name }}
     </div>
 </body>
 </html>

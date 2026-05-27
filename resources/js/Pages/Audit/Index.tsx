@@ -81,7 +81,16 @@ export default function AuditIndex({ auth, requirements, instructions, auditLog,
             });
             setPreviewImage(auditLog.photo_path ? `/storage/${auditLog.photo_path}` : null);
         } else {
-            reset();
+            setData({
+                audit_date: selectedDate,
+                taste_score: 0,
+                appearance_score: 0,
+                aroma_score: 0,
+                texture_score: 0,
+                photo: null,
+                notes: '',
+                kitchen_id: kitchenId
+            });
             setPreviewImage(null);
         }
     }, [auditLog, selectedDate]);
