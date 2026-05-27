@@ -406,8 +406,20 @@
                 <th width="15%" style="text-align: right;">Total Porsi</th>
             </tr>
         </thead>
+        @php
+            $grandTotalSmall = 0;
+            $grandTotalLarge = 0;
+            $grandTotalBufferSample = 0;
+            $grandTotalPortions = 0;
+        @endphp
         <tbody>
             @foreach($distribution as $dist)
+                @php
+                    $grandTotalSmall += $dist['small_count'];
+                    $grandTotalLarge += $dist['large_count'];
+                    $grandTotalBufferSample += ($dist['buffer'] + $dist['sample']);
+                    $grandTotalPortions += $dist['total'];
+                @endphp
                 <tr>
                     <td style="font-weight: 700;">{{ $dist['school_name'] }}</td>
                     <td style="text-align: center;">{{ $dist['small_count'] }}</td>
@@ -417,6 +429,15 @@
                 </tr>
             @endforeach
         </tbody>
+        <tfoot>
+            <tr style="background-color: #f1f5f9; font-weight: 800;">
+                <td style="text-transform: uppercase;">Total Keseluruhan</td>
+                <td style="text-align: center;">{{ $grandTotalSmall }}</td>
+                <td style="text-align: center;">{{ $grandTotalLarge }}</td>
+                <td style="text-align: center;">+{{ $grandTotalBufferSample }}</td>
+                <td style="text-align: right; font-weight: 800;">{{ $grandTotalPortions }}</td>
+            </tr>
+        </tfoot>
     </table>
 
     <div class="signature-area">
