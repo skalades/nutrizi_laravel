@@ -74,6 +74,9 @@ export default function EditMenu({ menu, foodItems, schools }: Props) {
         cooking_instructions: menu.cooking_instructions || '',
         items: menu.items.map(item => ({
             ...item,
+            portion_name: item.portion_name === 'Lauk' && item.food_item?.category 
+                ? item.food_item.category 
+                : item.portion_name,
             food_item: item.food_item // Ensure food_item is present for calculations
         })) as MenuItem[],
     });
