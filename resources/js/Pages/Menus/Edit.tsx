@@ -101,8 +101,8 @@ export default function EditMenu({ menu, foodItems, schools }: Props) {
 
     const filteredFoodItems = useMemo(() => {
         return foodItems.filter(fi => 
-            fi.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            fi.category.toLowerCase().includes(searchTerm.toLowerCase())
+            (fi.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (fi.category || '').toLowerCase().includes(searchTerm.toLowerCase())
         );
     }, [searchTerm, foodItems]);
 

@@ -89,10 +89,9 @@ export default function CreateMenu({ foodItems, schools }: Props) {
     }, [selectedSchoolIds, schools, buffer]);
 
     const filteredFoodItems = useMemo(() => {
-        // ... previous filtering logic
         return foodItems.filter(fi => 
-            fi.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            fi.category.toLowerCase().includes(searchTerm.toLowerCase())
+            (fi.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (fi.category || '').toLowerCase().includes(searchTerm.toLowerCase())
         );
     }, [searchTerm, foodItems]);
 
