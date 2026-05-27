@@ -234,22 +234,26 @@ class AuditController extends Controller
              return redirect()->back()->with('error', 'Anda harus ditugaskan ke sebuah unit dapur.');
         }
 
-        $photoPath = $this->imageService->compressAndStore($request->file('photo'));
+        $updateData = [
+            'taste_score' => $validated['taste_score'],
+            'appearance_score' => $validated['appearance_score'],
+            'aroma_score' => $validated['aroma_score'],
+            'texture_score' => $validated['texture_score'],
+            'notes' => $validated['notes'],
+            'audited_by' => $user->id,
+        ];
+
+        if ($request->hasFile('photo')) {
+            $photoPath = $this->imageService->compressAndStore($request->file('photo'));
+            $updateData['photo_path'] = $photoPath;
+        }
 
         $audit = AuditLog::updateOrCreate(
             [
                 'kitchen_id' => $kitchenId,
                 'audit_date' => $validated['audit_date'],
             ],
-            [
-                'photo_path' => $photoPath,
-                'taste_score' => $validated['taste_score'],
-                'appearance_score' => $validated['appearance_score'],
-                'aroma_score' => $validated['aroma_score'],
-                'texture_score' => $validated['texture_score'],
-                'notes' => $validated['notes'],
-                'audited_by' => $user->id,
-            ]
+            $updateData
         );
 
         return redirect()->back()->with('success', 'Audit QC berhasil disimpan.');
