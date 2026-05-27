@@ -40,6 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Planner
     Route::get('/planner', [PlannerController::class, 'index'])->name('planner.index');
     Route::post('/planner', [PlannerController::class, 'store'])->name('planner.store');
+    Route::post('/planner/bulk-destroy', [PlannerController::class, 'bulkDestroy'])->name('planner.bulkDestroy');
     Route::delete('/planner/{dailyMenu}', [PlannerController::class, 'destroy'])->name('planner.destroy');
     
     // Portions

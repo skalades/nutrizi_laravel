@@ -83,6 +83,18 @@ class PlannerController extends Controller
         return redirect()->back()->with('success', count($validated['school_ids']) . ' rencana menu berhasil dibuat.');
     }
 
+    public function bulkDestroy(Request $request)
+    {
+        $validated = $request->validate([
+            'ids' => 'required|array',
+            'ids.*' => 'exists:daily_menus,id',
+        ]);
+
+        DailyMenu::whereIn('id', $validated['ids'])->delete();
+
+        return redirect()->back()->with('success', count($validated['ids']) . ' rencana menu berhasil dihapus.');
+    }
+
     public function destroy(DailyMenu $dailyMenu)
     {
         $dailyMenu->delete();
