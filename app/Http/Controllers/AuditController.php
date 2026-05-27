@@ -220,7 +220,7 @@ class AuditController extends Controller
 
         $pdf = Pdf::loadView('pdf.audit_report', $data);
         
-        $filename = $data['auditLog'] ? "QC_REPORT_{$kitchenId}_{$date}.pdf" : "KITCHEN_WORKSHEET_{$kitchenId}_{$date}.pdf";
+        $filename = $data['auditLog'] ? "HANDBOOK_MENU_{$kitchenId}_{$date}.pdf" : "MENU_HARIAN_AKG_{$kitchenId}_{$date}.pdf";
         return $pdf->download($filename);
     }
 

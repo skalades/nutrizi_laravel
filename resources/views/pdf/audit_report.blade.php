@@ -243,34 +243,6 @@
                 <div style="padding: 50px; color: #cbd5e1; font-style: italic; font-size: 11px;">Dokumentasi visual tidak tersedia dalam sistem</div>
             @endif
         </div>
-
-        <div class="section-header">{{ $sectionCount++ }}. Uji Kelayakan Organoleptic</div>
-        <table class="score-table">
-            <tr>
-                <th width="25%">Rasa</th>
-                <th width="25%">Penampilan</th>
-                <th width="25%">Aroma</th>
-                <th width="25%">Tekstur</th>
-            </tr>
-            <tr>
-                <td>{{ $auditLog->taste_score }} / 5</td>
-                <td>{{ $auditLog->appearance_score }} / 5</td>
-                <td>{{ $auditLog->aroma_score }} / 5</td>
-                <td>{{ $auditLog->texture_score }} / 5</td>
-            </tr>
-        </table>
-    @endif
-
-    @if(count($instructions) > 0)
-        <div class="section-header">{{ $sectionCount++ }}. Instruksi Khusus Dapur & Prosedur</div>
-        <div class="instruction-card">
-            @foreach($instructions as $inst)
-                <div style="margin-bottom: 8px;">
-                    <span style="font-weight: 800; color: #166534; text-decoration: underline;">• {{ $inst['menu_name'] }}:</span>
-                    <div style="margin-top: 3px; line-height: 1.6;">{!! nl2br(e($inst['content'])) !!}</div>
-                </div>
-            @endforeach
-        </div>
     @endif
 
     @if(count($nutritionSummary) > 0)
@@ -371,6 +343,36 @@
                 </tfoot>
             </table>
         @endforeach
+    @endif
+
+    @if($auditLog)
+        <div class="section-header">{{ $sectionCount++ }}. Uji Kelayakan Organoleptic</div>
+        <table class="score-table">
+            <tr>
+                <th width="25%">Rasa</th>
+                <th width="25%">Penampilan</th>
+                <th width="25%">Aroma</th>
+                <th width="25%">Tekstur</th>
+            </tr>
+            <tr>
+                <td>{{ $auditLog->taste_score }} / 5</td>
+                <td>{{ $auditLog->appearance_score }} / 5</td>
+                <td>{{ $auditLog->aroma_score }} / 5</td>
+                <td>{{ $auditLog->texture_score }} / 5</td>
+            </tr>
+        </table>
+    @endif
+
+    @if(count($instructions) > 0)
+        <div class="section-header">{{ $sectionCount++ }}. Instruksi Khusus Dapur & Prosedur</div>
+        <div class="instruction-card">
+            @foreach($instructions as $inst)
+                <div style="margin-bottom: 8px;">
+                    <span style="font-weight: 800; color: #166534; text-decoration: underline;">• {{ $inst['menu_name'] }}:</span>
+                    <div style="margin-top: 3px; line-height: 1.6;">{!! nl2br(e($inst['content'])) !!}</div>
+                </div>
+            @endforeach
+        </div>
     @endif
 
     <div class="section-header">{{ $sectionCount++ }}. Agregasi Kebutuhan Bahan (Logistik)</div>

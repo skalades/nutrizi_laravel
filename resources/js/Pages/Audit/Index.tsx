@@ -182,7 +182,7 @@ export default function AuditIndex({ auth, requirements, instructions, auditLog,
                             )}
                         >
                             <Download className="w-4 h-4" />
-                            {auditLog ? 'Unduh Sertifikat QC' : 'Unduh Lembar Kerja Persiapan'}
+                            {auditLog ? 'Unduh Handbook Menu & Organoleptik' : 'Unduh Menu Harian & Nilai AKG'}
                         </button>
                     </div>
                 </div>
