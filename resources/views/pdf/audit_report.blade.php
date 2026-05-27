@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>{{ $auditLog ? 'Sertifikat QC' : 'Lembar Kerja Persiapan' }} - {{ $date }}</title>
+    <title>{{ $auditLog ? 'Handbook Menu & Organoleptik' : 'Menu Harian & Nilai AKG' }} - {{ $date }}</title>
     <style>
         @page {
             margin: 1.5cm 1.5cm;
@@ -214,7 +214,7 @@
     @php $sectionCount = 1; @endphp
 
     <div class="report-title">
-        {{ $auditLog ? 'Sertifikat Quality Control & Laporan Pengadaan' : 'Lembar Kerja Persiapan Dapur & Logistik' }}
+        {{ $auditLog ? 'Handbook Menu Dan Organoleptik' : 'Menu Harian Dan Nilai AKG' }}
     </div>
 
     <table class="data-grid">
@@ -229,7 +229,7 @@
             </td>
             <td width="30%">
                 <div class="data-label">Document Type</div>
-                <div class="data-value">{{ $auditLog ? 'Final QC Certificate' : 'Pre-Cooking Worksheet' }}</div>
+                <div class="data-value">{{ $auditLog ? 'Handbook Menu & Organoleptik' : 'Menu Harian & Nilai AKG' }}</div>
             </td>
         </tr>
     </table>
