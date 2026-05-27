@@ -150,7 +150,11 @@ export default function CreateMenu({ foodItems, schools }: Props) {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('menus.store'));
+        post(route('menus.store'), {
+            onError: (errors) => {
+                alert('Gagal menyimpan resep. Silakan periksa kembali inputan Anda:\n' + Object.values(errors).join('\n'));
+            }
+        });
     };
 
     const toggleSchool = (id: number) => {
@@ -218,38 +222,44 @@ export default function CreateMenu({ foodItems, schools }: Props) {
                                 )}
                             </div>
                             
-                            <div className="bg-emerald-50/50 px-6 py-4 rounded-2xl border border-emerald-900/5 flex items-center gap-4">
-                                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-900/40">Target</span>
-                                <div className="flex gap-2">
-                                    {['SD', 'SMP', 'SMA'].map((level) => (
-                                        <button
-                                            key={level}
-                                            type="button"
-                                            onClick={() => {
-                                                const current = Array.isArray(data.target_group) ? data.target_group : [];
-                                                const next = current.includes(level)
-                                                    ? current.filter(l => l !== level)
-                                                    : [...current, level];
-                                                setData('target_group', next);
-                                            }}
-                                            className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${
-                                                data.target_group?.includes(level)
-                                                    ? 'bg-emerald-600 text-white shadow-sm'
-                                                    : 'bg-white text-emerald-900/40 hover:text-emerald-900 hover:bg-emerald-100'
-                                            }`}
-                                        >
-                                            {level}
-                                        </button>
-                                    ))}
+                            <div className="flex flex-col gap-1">
+                                <div className="bg-emerald-50/50 px-6 py-4 rounded-2xl border border-emerald-900/5 flex items-center gap-4">
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-emerald-900/40">Target</span>
+                                    <div className="flex gap-2">
+                                        {['SD', 'SMP', 'SMA'].map((level) => (
+                                            <button
+                                                key={level}
+                                                type="button"
+                                                onClick={() => {
+                                                    const current = Array.isArray(data.target_group) ? data.target_group : [];
+                                                    const next = current.includes(level)
+                                                        ? current.filter(l => l !== level)
+                                                        : [...current, level];
+                                                    setData('target_group', next);
+                                                }}
+                                                className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${
+                                                    data.target_group?.includes(level)
+                                                        ? 'bg-emerald-600 text-white shadow-sm'
+                                                        : 'bg-white text-emerald-900/40 hover:text-emerald-900 hover:bg-emerald-100'
+                                                }`}
+                                            >
+                                                {level}
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
+                                <InputError message={errors.target_group} className="mt-1" />
                             </div>
 
-                            <TextInput
-                                className="bg-emerald-50/50 border-emerald-900/5 rounded-2xl px-6 py-3 text-sm font-bold min-w-[200px]"
-                                placeholder="Nama Menu..."
-                                value={data.menu_name}
-                                onChange={e => setData('menu_name', e.target.value)}
-                            />
+                            <div className="flex flex-col gap-1">
+                                <TextInput
+                                    className="bg-emerald-50/50 border-emerald-900/5 rounded-2xl px-6 py-3 text-sm font-bold min-w-[200px]"
+                                    placeholder="Nama Menu..."
+                                    value={data.menu_name}
+                                    onChange={e => setData('menu_name', e.target.value)}
+                                />
+                                <InputError message={errors.menu_name} className="mt-1" />
+                            </div>
 
                             <PrimaryButton className="px-8 py-4 bg-emerald-900 rounded-2xl shadow-xl shadow-emerald-900/20 gap-2" disabled={processing}>
                                 <span className="material-symbols-outlined text-sm">save</span>

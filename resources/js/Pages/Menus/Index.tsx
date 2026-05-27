@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { PageProps } from '@/types';
 import { 
@@ -54,10 +55,24 @@ interface MenusProps extends PageProps {
     masterMenus: Menu[];
     dailyMenus: DailyMenu[];
     foodItems: FoodItem[];
+    flash?: {
+        success?: string;
+        error?: string;
+    };
 }
 
 export default function MenusIndex({ masterMenus, dailyMenus }: MenusProps) {
     const { delete: destroy } = useForm();
+    const { flash } = usePage<MenusProps>().props;
+
+    useEffect(() => {
+        if (flash?.success) {
+            alert(flash.success);
+        }
+        if (flash?.error) {
+            alert(flash.error);
+        }
+    }, [flash]);
 
     const handleDelete = (menu: Menu) => {
         if (confirm(`Apakah Anda yakin ingin menghapus resep "${menu.menu_name}"?`)) {

@@ -83,7 +83,7 @@ class MenuController extends Controller
             }
         });
 
-        return redirect()->back()->with('success', 'Menu resep berhasil dibuat.');
+        return redirect()->route('menus.index')->with('success', 'Menu resep berhasil dibuat.');
     }
 
     public function update(Request $request, MasterMenu $menu)
@@ -113,7 +113,7 @@ class MenuController extends Controller
             }
         });
 
-        return redirect()->back()->with('success', 'Menu resep berhasil diperbarui.');
+        return redirect()->route('menus.index')->with('success', 'Menu resep berhasil diperbarui.');
     }
 
     public function destroy(MasterMenu $menu)
