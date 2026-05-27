@@ -251,7 +251,7 @@
         @foreach($nutritionSummary as $nutri)
             <!-- Detailed Table for Small Portion -->
             <div style="margin-bottom: 5px; font-size: 10px; font-weight: 800; color: #064e3b; text-transform: uppercase;">
-                {{ $nutri['menu_name'] }} - Porsi Kecil (SD)
+                {{ $nutri['menu_name'] }} - Porsi Kecil
             </div>
             <table class="table" style="margin-bottom: 20px;">
                 <thead>
@@ -298,7 +298,7 @@
 
             <!-- Detailed Table for Large Portion -->
             <div style="margin-bottom: 5px; font-size: 10px; font-weight: 800; color: #064e3b; text-transform: uppercase;">
-                {{ $nutri['menu_name'] }} - Porsi Besar (SMP)
+                {{ $nutri['menu_name'] }} - Porsi Besar
             </div>
             <table class="table" style="margin-bottom: 30px;">
                 <thead>
