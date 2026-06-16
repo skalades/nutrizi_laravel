@@ -209,13 +209,24 @@ class AuditController extends Controller
         $ahliGizi = \App\Models\User::where('kitchen_id', $kitchenId)->where('role', 'NUTRITIONIST')->first();
         $data['ahliGizi'] = $ahliGizi;
 
-        // Prepare photo base64
+        // Determine PDF type: 'menu' always renders Menu Harian & AKG (ignores auditLog),
+        // no type or 'handbook' renders Handbook when auditLog exists.
+        $pdfType = $request->input('type', 'auto');
+        $originalAuditLog = $data['auditLog']; // store before potentially nullifying
+        $isHandbook = ($pdfType !== 'menu') && !is_null($originalAuditLog);
+
+        // If rendering menu-only PDF, hide auditLog so blade shows Menu Harian content
+        if (!$isHandbook) {
+            $data['auditLog'] = null;
+        }
+
+        // Prepare photo base64 (only for Handbook mode)
         $photoBase64 = null;
-        if ($data['auditLog'] && $data['auditLog']->photo_path && Storage::disk('public')->exists($data['auditLog']->photo_path)) {
-            $photoPath = Storage::disk('public')->path($data['auditLog']->photo_path);
-            $type = pathinfo($photoPath, PATHINFO_EXTENSION);
+        if ($isHandbook && $originalAuditLog && $originalAuditLog->photo_path && Storage::disk('public')->exists($originalAuditLog->photo_path)) {
+            $photoPath = Storage::disk('public')->path($originalAuditLog->photo_path);
+            $ext = pathinfo($photoPath, PATHINFO_EXTENSION);
             $imageData = file_get_contents($photoPath);
-            $photoBase64 = 'data:image/' . $type . ';base64,' . base64_encode($imageData);
+            $photoBase64 = 'data:image/' . $ext . ';base64,' . base64_encode($imageData);
         }
 
         // Prepare Logo base64
@@ -231,8 +242,8 @@ class AuditController extends Controller
         $data['logoBase64'] = $logoBase64;
 
         $pdf = Pdf::loadView('pdf.audit_report', $data);
-        
-        $filename = $data['auditLog'] ? "HANDBOOK_MENU_{$kitchenId}_{$date}.pdf" : "MENU_HARIAN_AKG_{$kitchenId}_{$date}.pdf";
+
+        $filename = $isHandbook ? "HANDBOOK_MENU_{$kitchenId}_{$date}.pdf" : "MENU_HARIAN_AKG_{$kitchenId}_{$date}.pdf";
         return $pdf->download($filename);
     }
 
