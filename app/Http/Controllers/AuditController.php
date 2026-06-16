@@ -206,7 +206,7 @@ class AuditController extends Controller
         $data = $this->getAuditData($kitchenId, $date);
 
         // Get Ahli Gizi for this kitchen
-        $ahliGizi = \App\Models\User::where('kitchen_id', $kitchenId)->where('role', 'AHLI_GIZI')->first();
+        $ahliGizi = \App\Models\User::where('kitchen_id', $kitchenId)->where('role', 'NUTRITIONIST')->first();
         $data['ahliGizi'] = $ahliGizi;
 
         // Prepare photo base64
