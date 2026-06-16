@@ -442,7 +442,7 @@
 
     <div class="signature-area">
         <div class="signature-box">
-            <div class="signature-title">{{ $auditLog ? 'Ahli Gizi Penanggung Jawab,' : 'Koordinator Unit Dapur,' }}</div>
+            <div class="signature-title">{{ $auditLog ? 'Ahli Gizi Penanggung Jawab,' : 'Pengawas Gizi (ahli gizi),' }}</div>
             <div class="signature-name">
                 @if($auditLog)
                     {{ $auditLog->auditor->full_name }}{{ $auditLog->auditor->title ? ', '.$auditLog->auditor->title : '' }}
