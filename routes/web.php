@@ -56,6 +56,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/audit', [AuditController::class, 'index'])->name('audit.index');
     Route::post('/audit', [AuditController::class, 'store'])->name('audit.store');
     Route::get('/audit/export', [AuditController::class, 'exportPdf'])->name('audit.export');
+    Route::delete('/audit/{auditLog}', [AuditController::class, 'destroy'])->name('audit.destroy');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

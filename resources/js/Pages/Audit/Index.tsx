@@ -14,7 +14,8 @@ import {
     Save,
     AlertCircle,
     Download,
-    Trophy
+    Trophy,
+    Trash2
 } from 'lucide-react';
 import { FormEventHandler, useState, useEffect } from 'react';
 
@@ -170,7 +171,7 @@ export default function AuditIndex({ auth, requirements, instructions, auditLog,
                         </div>
                     </div>
                     
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3 flex-wrap justify-end">
                         <div className="flex items-center gap-2 bg-white p-2 rounded-2xl border border-emerald-900/5 shadow-sm">
                             <Calendar className="w-5 h-5 text-emerald-500 ml-2" />
                             <input 
@@ -181,18 +182,25 @@ export default function AuditIndex({ auth, requirements, instructions, auditLog,
                             />
                         </div>
                         
+                        {/* Tombol Menu Harian & Nilai AKG — selalu tampil */}
                         <button
-                            onClick={handleExportPdf}
-                            className={cn(
-                                "px-6 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] shadow-xl transition-all flex items-center gap-3 animate-in slide-in-from-right",
-                                auditLog 
-                                    ? "bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/20" 
-                                    : "bg-white hover:bg-emerald-50 text-emerald-900 border border-emerald-900/10 shadow-sm"
-                            )}
+                            onClick={() => window.location.href = route('audit.export', { date: selectedDate, kitchen_id: kitchenId, type: 'menu' })}
+                            className="px-5 py-3.5 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] transition-all flex items-center gap-2 bg-white hover:bg-emerald-50 text-emerald-900 border border-emerald-900/10 shadow-sm"
                         >
                             <Download className="w-4 h-4" />
-                            {auditLog ? 'Unduh Handbook Menu & Organoleptik' : 'Unduh Menu Harian & Nilai AKG'}
+                            Menu Harian &amp; Nilai AKG
                         </button>
+
+                        {/* Tombol Handbook Organoleptik — hanya jika auditLog ada */}
+                        {auditLog && (
+                            <button
+                                onClick={handleExportPdf}
+                                className="px-5 py-3.5 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] shadow-xl transition-all flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/20 animate-in slide-in-from-right"
+                            >
+                                <Download className="w-4 h-4" />
+                                Handbook Organoleptik
+                            </button>
+                        )}
                     </div>
                 </div>
 
@@ -306,19 +314,43 @@ export default function AuditIndex({ auth, requirements, instructions, auditLog,
                                 </div>
                             </div>
 
-                            <div className="pt-8 border-t border-emerald-50 flex flex-col md:flex-row justify-between items-center gap-6">
-                                <div className="flex items-center gap-3 text-emerald-800/40 italic text-[10px] font-medium leading-tight max-w-[400px]">
-                                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                                    Dengan menyimpan, Anda menyatakan telah melakukan verifikasi visual dan indrawi sesuai standar QC Nutrizi. Laporan PDF akan segera tersedia.
+                            <div className="pt-8 border-t border-emerald-50 space-y-6">
+                                <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+                                    <div className="flex items-center gap-3 text-emerald-800/40 italic text-[10px] font-medium leading-tight max-w-[400px]">
+                                        <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                                        Dengan menyimpan, Anda menyatakan telah melakukan verifikasi visual dan indrawi sesuai standar QC Nutrizi. Laporan PDF akan segera tersedia.
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        disabled={processing}
+                                        className="w-full md:w-auto bg-emerald-900 text-white px-12 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-emerald-900/20 hover:bg-black hover:translate-y-[-2px] transition-all flex items-center justify-center gap-3"
+                                    >
+                                        {processing ? 'Memproses...' : (auditLog ? 'Perbarui Audit' : 'Kunci & Terbitkan Audit')}
+                                        <Save className="w-5 h-5" />
+                                    </button>
                                 </div>
-                                <button
-                                    type="submit"
-                                    disabled={processing}
-                                    className="w-full md:w-auto bg-emerald-900 text-white px-12 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-emerald-900/20 hover:bg-black hover:translate-y-[-2px] transition-all flex items-center justify-center gap-3"
-                                >
-                                    {processing ? 'Memproses...' : (auditLog ? 'Perbarui Audit' : 'Kunci & Terbitkan Audit')}
-                                    <Save className="w-5 h-5" />
-                                </button>
+
+                                {/* Tombol Hapus Audit — hanya untuk pembuat atau ADMIN */}
+                                {auditLog && (auth.user.role === 'ADMIN' || auth.user.id === auditLog.audited_by) && (
+                                    <div className="flex items-center justify-between p-4 bg-rose-50 rounded-2xl border border-rose-100">
+                                        <div className="text-[10px] text-rose-700/60 font-bold leading-tight">
+                                            <span className="font-black text-rose-700">⚠ Hapus Audit</span><br />
+                                            Tindakan ini tidak bisa dibatalkan. Foto &amp; data audit akan dihapus permanen.
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                if (confirm('Yakin ingin menghapus data audit ini? Foto dan seluruh data akan dihapus permanen dan tidak bisa dikembalikan.')) {
+                                                    router.delete(route('audit.destroy', auditLog.id));
+                                                }
+                                            }}
+                                            className="flex items-center gap-2 bg-rose-600 hover:bg-rose-700 text-white px-5 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all shadow-lg shadow-rose-600/20 ml-4 flex-shrink-0"
+                                        >
+                                            <Trash2 className="w-4 h-4" />
+                                            Hapus Audit
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         </form>
                     </div>

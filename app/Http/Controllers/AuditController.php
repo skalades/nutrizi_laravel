@@ -266,4 +266,26 @@ class AuditController extends Controller
 
         return redirect()->back()->with('success', 'Audit QC berhasil disimpan.');
     }
+
+    public function destroy(AuditLog $auditLog)
+    {
+        $user = Auth::user();
+
+        // Hanya user yang membuat audit atau ADMIN yang boleh menghapus
+        if ($user->role !== 'ADMIN' && $auditLog->audited_by !== $user->id) {
+            abort(403, 'Anda tidak memiliki izin untuk menghapus audit ini.');
+        }
+
+        $date = $auditLog->audit_date;
+
+        // Hapus foto dari storage jika ada
+        if ($auditLog->photo_path && Storage::disk('public')->exists($auditLog->photo_path)) {
+            Storage::disk('public')->delete($auditLog->photo_path);
+        }
+
+        $auditLog->delete();
+
+        return redirect()->route('audit.index', ['date' => $date])
+            ->with('success', 'Data audit berhasil dihapus.');
+    }
 }
