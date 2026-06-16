@@ -205,6 +205,10 @@ class AuditController extends Controller
 
         $data = $this->getAuditData($kitchenId, $date);
 
+        // Get Ahli Gizi for this kitchen
+        $ahliGizi = \App\Models\User::where('kitchen_id', $kitchenId)->where('role', 'AHLI_GIZI')->first();
+        $data['ahliGizi'] = $ahliGizi;
+
         // Prepare photo base64
         $photoBase64 = null;
         if ($data['auditLog'] && $data['auditLog']->photo_path && Storage::disk('public')->exists($data['auditLog']->photo_path)) {

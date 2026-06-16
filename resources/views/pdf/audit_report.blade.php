@@ -446,6 +446,8 @@
             <div class="signature-name">
                 @if($auditLog)
                     {{ $auditLog->auditor->full_name }}{{ $auditLog->auditor->title ? ', '.$auditLog->auditor->title : '' }}
+                @elseif(isset($ahliGizi) && $ahliGizi)
+                    {{ $ahliGizi->full_name }}{{ $ahliGizi->title ? ', '.$ahliGizi->title : '' }}
                 @else
                     (__________________________)
                 @endif
